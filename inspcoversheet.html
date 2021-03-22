@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<base target="_top">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"> -->
+	<?!= include("inspcoversheet-css"); ?>
+</head>
+
+<body>
+
+	<nav role="navigation">
+		<ul>
+			<li><a href="<?= ScriptApp.getService().getUrl(); ?>?v=info">Home</a></li>
+			<li><a href="#" aria-haspopup="true">Pages</a>
+				<ul class="dropdown" aria-label="submenu">
+					<li><a href="https://docs.google.com/forms/d/e/1FAIpQLScvbTYxdeGo67kEP1Yz2Spm5XZUEqvOrpS0XdD-Ht8EgzPFHQ/viewform" target="_blank" >Pre & Post Inspections Form</a></li>
+					<li><a href="<?= ScriptApp.getService().getUrl(); ?>?v=prepost">Pre & Post Inspections Sheet</a>
+					</li>
+					<li><a href="<?= ScriptApp.getService().getUrl(); ?>?v=inspcoversheet">Inspection Cover Sheet</a>
+					</li>
+					<li><a href="<?= ScriptApp.getService().getUrl(); ?>?v=equiphistory">Equipment History</a></li>
+				</ul>
+			</li>
+		</ul>
+	</nav>
+	<br>
+
+
+	<div id="imagewrap">
+		<img src="https://www.multicretesystems.com/site/assets/files/1006/xfooter_logo_r.png.pagespeed.ic.bKmBV7JcVG.png" alt="Multicrete Logo">
+  </div>
+
+		<br><br>
+		<br><br>
+
+		<center>
+			<div class="Rtable-cell">
+				<h1>Inspection Cover Sheet</h1>
+			</div>
+		</center>
+
+
+		<br>
+		<hr>
+
+		<div class="form-info-inline">
+			<label class="form-info-label" for="assetno">Asset Number</label>
+			<select class="opt-grayfield" id="assetno">
+      <option value="" disabled selected>Asset #</option>
+      <? for(var i=0;i<assetlist.length;i++){?>
+
+        <option><?= assetlist[i]; ?></option>
+
+      <? } ?>
+    </select>
+		</div>
+
+		<div class="form-info-inline">
+			<label class="form-info-label" for="inspdate">Inspection Date</label>
+			<select class="opt-grayfield" id="inspdate">
+      <option id="dummydate" value="dummydate" disabled selected>Date</option>
+      <? for(var i=0;i<inspdatelist.length;i++){?>
+
+        <option><?= inspdatelist[i]; ?></option>
+
+      <? } ?>
+    </select>
+		</div>
+
+		<br><br>
+		<hr>
+		<br>
+
+		<div class="Rtable Rtable--2cols">
+			<div class="Rtable-cell">
+				<h3>Description</h3>
+			</div>
+			<div class="Rtable-cell" id="jobdesc"></div>
+			<div class="Rtable-cell">
+				<h3>Job #</h3>
+			</div>
+			<div class="Rtable-cell"></div>
+
+			<div class="Rtable-cell">
+				<h3>Inspection Type</h3>
+			</div>
+			<div class="Rtable-cell" id="insptype"></div>
+			<div class="Rtable-cell">
+				<h3>Inspection Status</h3>
+			</div>
+			<div class="Rtable-cell"></div>
+
+			<div class="Rtable-cell">
+				<h3>Crane Status</h3>
+			</div>
+			<div class="Rtable-cell" id="cranestatus"></div>
+		</div>
+
+		<hr>
+		<br>
+		<h2><u>Bridge/Jib</u></h2>
+		<div class="Rtable Rtable--4cols">
+			<div class="Rtable-cell">
+				<h3>Bridge Capacity</h3>
+			</div>
+			<div class="Rtable-cell" id="bridgecap"></div>
+
+			<div class="Rtable-cell">
+				<h3>Bridge Manufacturer</h3>
+			</div>
+			<div class="Rtable-cell" id="bridgemfr"></div>
+			<div class="Rtable-cell">
+				<h3>Bridge Model</h3>
+			</div>
+			<div class="Rtable-cell" id="bridgemodel"></div>
+
+			<div class="Rtable-cell">
+				<h3>Bridge Type</h3>
+			</div>
+			<div class="Rtable-cell" id="bridgetype"></div>
+			<div class="Rtable-cell">
+				<h3>Bridge Serial Number</h3>
+			</div>
+			<div class="Rtable-cell" id="bridgeserialno"></div>
+			<div class="Rtable-cell">
+				<h3>Min. Inspection Summary</h3>
+			</div>
+			<div class="Rtable-cell" id="mininspsumm"></div>
+			<div class="Rtable-cell">
+				<h3>Max. Inspection Summary</h3>
+			</div>
+			<div class="Rtable-cell" id="maxinspsumm"></div>
+			<div class="Rtable-cell">
+				<h3>Safety Inspection - Details of Bridge Defects</h3>
+			</div>
+			<div class="Rtable-cell" id="bridgedefectsdetails"></div>
+			<div class="Rtable-cell">
+				<h3>Preventative Maintenance Inspection Summary</h3>
+			</div>
+			<div class="Rtable-cell" id="prevmaintinspsumm"></div>
+			<div class="Rtable-cell">
+				<h3>Preventative Maintenance Details of Defects</h3>
+			</div>
+			<div class="Rtable-cell" id="prevmaintdefectsdetails"></div>
+		</div>
+
+		<hr>
+		<br>
+		<h2><u>#1 Hoist & Trolley</u></h2>
+		<div class="Rtable Rtable--4cols">
+			<div class="Rtable-cell">
+				<h3>Hoist #1 Capacity</h3>
+			</div>
+			<div class="Rtable-cell" id="hoist1cap"></div>
+
+			<div class="Rtable-cell">
+				<h3>Hoist #1 Manufacturer</h3>
+			</div>
+			<div class="Rtable-cell" id="hoist1mfr"></div>
+			<div class="Rtable-cell">
+				<h3>Hoist #1 Model</h3>
+			</div>
+			<div class="Rtable-cell" id="hoist1model"></div>
+
+			<div class="Rtable-cell">
+				<h3>Hoist #1 Type</h3>
+			</div>
+			<div class="Rtable-cell" id="hoist1type"></div>
+			<div class="Rtable-cell">
+				<h3>Hoist #1 Serial Number</h3>
+			</div>
+			<div class="Rtable-cell" id="hoist1serialno"></div>
+			<div class="Rtable-cell">
+				<h3>Hoist #1 Min. Inspection Summary</h3>
+			</div>
+			<div class="Rtable-cell" id="hoist1mininspsumm"></div>
+			<div class="Rtable-cell">
+				<h3>Hoist #1 Max. Inspection Summary</h3>
+			</div>
+			<div class="Rtable-cell" id="hoist1maxinspsumm"></div>
+			<div class="Rtable-cell">
+				<h3>Safety Inspection - Details of Hoist #1 Defects</h3>
+			</div>
+			<div class="Rtable-cell" id="hoist1defectsdetails"></div>
+			<div class="Rtable-cell">
+				<h3>Hoist #1 Preventative Maintenance Inspection Summary</h3>
+			</div>
+			<div class="Rtable-cell" id="hoist1prevmaintinspsumm"></div>
+			<div class="Rtable-cell">
+				<h3>Hoist #1 Preventative Maintenance Details of Defects</h3>
+			</div>
+			<div class="Rtable-cell" id="hoist1prevmaintdefectsdetails"></div>
+		</div>
+
+		<hr>
+		<br>
+		<h2><u>#2 Hoist & Trolley</u></h2>
+		<div class="Rtable Rtable--4cols">
+			<div class="Rtable-cell">
+				<h3>Hoist #2 Capacity</h3>
+			</div>
+			<div class="Rtable-cell" id="hoist2cap"></div>
+
+			<div class="Rtable-cell">
+				<h3>Hoist #2 Manufacturer</h3>
+			</div>
+			<div class="Rtable-cell" id="hoist2mfr"></div>
+			<div class="Rtable-cell">
+				<h3>Hoist #2 Model</h3>
+			</div>
+			<div class="Rtable-cell" id="hoist2model"></div>
+
+			<div class="Rtable-cell">
+				<h3>Hoist #2 Type</h3>
+			</div>
+			<div class="Rtable-cell" id="hoist2type"></div>
+			<div class="Rtable-cell">
+				<h3>Hoist #2 Serial Number</h3>
+			</div>
+			<div class="Rtable-cell" id="hoist2serialno"></div>
+			<div class="Rtable-cell">
+				<h3>Hoist #2 Min. Inspection Summary</h3>
+			</div>
+			<div class="Rtable-cell" id="hoist2mininspsumm"></div>
+			<div class="Rtable-cell">
+				<h3>Hoist #2 Max. Inspection Summary</h3>
+			</div>
+			<div class="Rtable-cell" id="hoist2maxinspsumm"></div>
+			<div class="Rtable-cell">
+				<h3>Safety Inspection - Details of Hoist #2 Defects</h3>
+			</div>
+			<div class="Rtable-cell" id="hoist2defectsdetails"></div>
+			<div class="Rtable-cell">
+				<h3>Hoist #2 Preventative Maintenance Inspection Summary</h3>
+			</div>
+			<div class="Rtable-cell" id="hoist2prevmaintinspsumm"></div>
+			<div class="Rtable-cell">
+				<h3>Hoist #2 Preventative Maintenance Details of Defects</h3>
+			</div>
+			<div class="Rtable-cell" id="hoist2prevmaintdefectsdetails"></div>
+		</div>
+
+		<hr>
+		<br>
+		<h2><u>#3 Hoist & Trolley</u></h2>
+		<div class="Rtable Rtable--4cols">
+			<div class="Rtable-cell">
+				<h3>Hoist #3 Capacity</h3>
+			</div>
+			<div class="Rtable-cell" id="hoist3cap"></div>
+
+			<div class="Rtable-cell">
+				<h3>Hoist #3 Manufacturer</h3>
+			</div>
+			<div class="Rtable-cell" id="hoist3mfr"></div>
+			<div class="Rtable-cell">
+				<h3>Hoist #3 Model</h3>
+			</div>
+			<div class="Rtable-cell" id="hoist3model"></div>
+
+			<div class="Rtable-cell">
+				<h3>Hoist #3 Type</h3>
+			</div>
+			<div class="Rtable-cell" id="hoist3type"></div>
+			<div class="Rtable-cell">
+				<h3>Hoist #3 Serial Number</h3>
+			</div>
+			<div class="Rtable-cell" id="hoist3serialno"></div>
+			<div class="Rtable-cell">
+				<h3>Hoist #3 Min. Inspection Summary</h3>
+			</div>
+			<div class="Rtable-cell" id="hoist3mininspsumm"></div>
+			<div class="Rtable-cell">
+				<h3>Hoist #3 Max. Inspection Summary</h3>
+			</div>
+			<div class="Rtable-cell" id="hoist3maxinspsumm"></div>
+			<div class="Rtable-cell">
+				<h3>Safety Inspection - Details of Hoist #3 Defects</h3>
+			</div>
+			<div class="Rtable-cell" id="hoist3defectsdetails"></div>
+			<div class="Rtable-cell">
+				<h3>Hoist #3 Preventative Maintenance Inspection Summary</h3>
+			</div>
+			<div class="Rtable-cell" id="hoist3prevmaintinspsumm"></div>
+			<div class="Rtable-cell">
+				<h3>Hoist #3 Preventative Maintenance Details of Defects</h3>
+			</div>
+			<div class="Rtable-cell" id="hoist3prevmaintdefectsdetails"></div>
+		</div>
+
+		<hr>
+		<br>
+		<h2><u>#4 Hoist & Trolley</u></h2>
+		<div class="Rtable Rtable--4cols">
+			<div class="Rtable-cell">
+				<h3>Hoist #4 Capacity</h3>
+			</div>
+			<div class="Rtable-cell" id="hoist4cap"></div>
+
+			<div class="Rtable-cell">
+				<h3>Hoist #4 Manufacturer</h3>
+			</div>
+			<div class="Rtable-cell" id="hoist4mfr"></div>
+			<div class="Rtable-cell">
+				<h3>Hoist #4 Model</h3>
+			</div>
+			<div class="Rtable-cell" id="hoist4model"></div>
+
+			<div class="Rtable-cell">
+				<h3>Hoist #4 Type</h3>
+			</div>
+			<div class="Rtable-cell" id="hoist4type"></div>
+			<div class="Rtable-cell">
+				<h3>Hoist #4 Serial Number</h3>
+			</div>
+			<div class="Rtable-cell" id="hoist4serialno"></div>
+			<div class="Rtable-cell">
+				<h3>Hoist #4 Min. Inspection Summary</h3>
+			</div>
+			<div class="Rtable-cell" id="hoist4mininspsumm"></div>
+			<div class="Rtable-cell">
+				<h3>Hoist #4 Max. Inspection Summary</h3>
+			</div>
+			<div class="Rtable-cell" id="hoist4maxinspsumm"></div>
+			<div class="Rtable-cell">
+				<h3>Safety Inspection - Details of Hoist #4 Defects</h3>
+			</div>
+			<div class="Rtable-cell" id="hoist4defectsdetails"></div>
+			<div class="Rtable-cell">
+				<h3>Hoist #4 Preventative Maintenance Inspection Summary</h3>
+			</div>
+			<div class="Rtable-cell" id="hoist4prevmaintinspsumm"></div>
+			<div class="Rtable-cell">
+				<h3>Hoist #4 Preventative Maintenance Details of Defects</h3>
+			</div>
+			<div class="Rtable-cell" id="hoist4prevmaintdefectsdetails"></div>
+		</div>
+
+		<hr>
+		<br>
+		<h2><u>#5 Hoist & Trolley</u></h2>
+		<div class="Rtable Rtable--4cols">
+			<div class="Rtable-cell">
+				<h3>Hoist #5 Capacity</h3>
+			</div>
+			<div class="Rtable-cell" id="hoist5cap"></div>
+
+			<div class="Rtable-cell">
+				<h3>Hoist #5 Manufacturer</h3>
+			</div>
+			<div class="Rtable-cell" id="hoist5mfr"></div>
+			<div class="Rtable-cell">
+				<h3>Hoist #5 Model</h3>
+			</div>
+			<div class="Rtable-cell" id="hoist5model"></div>
+
+			<div class="Rtable-cell">
+				<h3>Hoist #5 Type</h3>
+			</div>
+			<div class="Rtable-cell" id="hoist5type"></div>
+			<div class="Rtable-cell">
+				<h3>Hoist #5 Serial Number</h3>
+			</div>
+			<div class="Rtable-cell" id="hoist5serialno"></div>
+			<div class="Rtable-cell">
+				<h3>Hoist #5 Min. Inspection Summary</h3>
+			</div>
+			<div class="Rtable-cell" id="hoist5mininspsumm"></div>
+			<div class="Rtable-cell">
+				<h3>Hoist #5 Max. Inspection Summary</h3>
+			</div>
+			<div class="Rtable-cell" id="hoist5maxinspsumm"></div>
+			<div class="Rtable-cell">
+				<h3>Safety Inspection - Details of Hoist #5 Defects</h3>
+			</div>
+			<div class="Rtable-cell" id="hoist5defectsdetails"></div>
+			<div class="Rtable-cell">
+				<h3>Hoist #5 Preventative Maintenance Inspection Summary</h3>
+			</div>
+			<div class="Rtable-cell" id="hoist5prevmaintinspsumm"></div>
+			<div class="Rtable-cell">
+				<h3>Hoist #5 Preventative Maintenance Details of Defects</h3>
+			</div>
+			<div class="Rtable-cell" id="hoist5prevmaintdefectsdetails"></div>
+		</div>
+
+		<hr>
+		<br>
+		<center>
+			<h2>Details of CSA B167-16 Required Safety Inspection Points</h2>
+		</center>
+		<div class="Rtable Rtable--1cols">
+			<div class="Rtable-cell">
+				<h3>Bridge Inspection - Minimum Safety - "Frequent" Inspection Points</h3>
+			</div>
+			<div class="Rtable-cell">
+				<h4>Inspect the following for Defects, Malfunctions, damage or other signs of wear as per CSA B167-16
+					Section 6.4.2 Inspection targets for frequent inspection</h4>
+			</div>
+			<div class="Rtable-cell">
+				(a) all operational functions
+			</div>
+			<div class="Rtable-cell">
+				(b) lines, tanks, valves, pumps, and other parts of Air or Hydraulic systems (for leakage)
+			</div>
+			<div class="Rtable-cell">
+				(f) limit devices, for proper functioning
+			</div>
+			<div class="Rtable-cell">
+				(h) brakes
+			</div>
+			<div class="Rtable-cell">
+				<h3>Bridge Inspection - Maximum Safety - "Periodic" Inspection Points</h3>
+			</div>
+			<div class="Rtable-cell">
+				<h4>Inspect the following for Defects, Malfunctions, damage or other signs of wear as per CSA B167-16
+					Section 6.5.2.1 Inspection targets for periodic inspection.</h4>
+			</div>
+			<div class="Rtable-cell">
+				(a) deformed, cracked, or corroded members (e.g., transmission shaft)
+			</div>
+			<div class="Rtable-cell">
+				(b) missing or visibly loose bolts in the supporting structure
+			</div>
+			<div class="Rtable-cell">
+				(c) cracked welds
+			</div>
+			<div class="Rtable-cell">
+				(e) worn, corroded, cracked, or distroted parts such as pins, exposed or open bearings, bushings,
+				shafting, couplings, gears, bumpers, and trolley stops
+			</div>
+			<div class="Rtable-cell">
+				(f) glazing, scoring, warping, contamination, or wear of electrical and mechanical brakes
+			</div>
+			<div class="Rtable-cell">
+				(i) evidence of pitting or deterioration of electrical contacts
+			</div>
+			<div class="Rtable-cell">
+				(j) interference with the free operation of buttons and controls
+			</div>
+			<div class="Rtable-cell">
+				(k) damaged insulation on the electrical wire, cables, and controls
+			</div>
+			<div class="Rtable-cell">
+				(l) damaged, deformed, or misaligned festoon system or bus bars.
+			</div>
+			<div class="Rtable-cell">
+				(m) malfunction of heaters as can be determined without disassembly
+			</div>
+			<div class="Rtable-cell">
+				(o) worn and/or damaged wheel assemblies
+			</div>
+			<div class="Rtable-cell">
+				(p) cracked, distorted, or worn guided rollers(e.g., on rack and pinion hoist, on trolleys or bridges)
+			</div>
+			<div class="Rtable-cell">
+				(t) safeguards and shields for moving equipment
+			</div>
+			<div class="Rtable-cell">
+				(u) legibility of critical marks and labels (e.g., warning signs, rated load labels)
+			</div>
+			<div class="Rtable-cell">
+				(v) inadequate oil level
+			</div>
+			<div class="Rtable-cell">
+				<h3>Hoist/Trolley - Minimum Safety - "Frequent" Inspection Points</h3>
+			</div>
+			<div class="Rtable-cell">
+				<h4>Inspect the following for Defects, Malfunctions, damage or other signs of wear as per CSA B167-16
+					Section 6.4.2 Inspection targets for frequent inspection</h4>
+			</div>
+			<div class="Rtable-cell">
+				(a) all operational functions
+			</div>
+			<div class="Rtable-cell">
+				(b) lines, tanks, valves, pumps, and other parts of Air or Hydraulic systems (for leakage)
+			</div>
+			<div class="Rtable-cell">
+				(c) hooks, for deformation, wear, or cracking
+			</div>
+			<div class="Rtable-cell">
+				(d) hook latches, where present
+			</div>
+			<div class="Rtable-cell">
+				(e) hoist ropes or load chains
+			</div>
+			<div class="Rtable-cell">
+				(f) limit devices, for proper functioning
+			</div>
+			<div class="Rtable-cell">
+				(g) function labels for operator control
+			</div>
+			<div class="Rtable-cell">
+				(h) brakes
+			</div>
+			<div class="Rtable-cell">
+				<h3>Hoist/Trolley - Maximum Safety - "Periodic" Inspection Points</h3>
+			</div>
+			<div class="Rtable-cell">
+				<h4>Inspect the following for Defects, Malfunctions, damage or other signs of wear as per CSA B167-16
+					Section 6.5.2.1 Inspection targets for periodic inspection.</h4>
+			</div>
+			<div class="Rtable-cell">
+				(a) deformed, cracked, or corroded members (e.g., transmission shaft)
+			</div>
+			<div class="Rtable-cell">
+				(c) cracked welds
+			</div>
+			<div class="Rtable-cell">
+				(f) glazing, scoring, warping, contamination, or wear of electrical and mechanical brakes
+			</div>
+			<div class="Rtable-cell">
+				(i) evidence of pitting or deterioration of electrical contacts
+			</div>
+			<div class="Rtable-cell">
+				(j) interference with the free operation of buttons and controls
+			</div>
+			<div class="Rtable-cell">
+				(k) damaged insulation on the electrical wire, cables, and controls
+			</div>
+			<div class="Rtable-cell">
+				(l) damaged, deformed, or misaligned festoon system or bus bars.
+			</div>
+			<div class="Rtable-cell">
+				(m) malfunction of heaters as can be determined without disassembly
+			</div>
+			<div class="Rtable-cell">
+				(n) inadequate performance or reliability of the limit switch
+			</div>
+			<div class="Rtable-cell">
+				(o) worn and/or damaged wheel assemblies
+			</div>
+			<div class="Rtable-cell">
+				(p) cracked, distorted, or worn guided rollers(e.g., on rack and pinion hoist, on trolleys or bridges)
+			</div>
+			<div class="Rtable-cell">
+				(q) malfunction controlled lowering motion
+			</div>
+			<div class="Rtable-cell">
+				(r) wear, cracks, or corrosion of wire rope, load chain, end clamps or rope clips
+			</div>
+			<div class="Rtable-cell">
+				(s) rope reeving (for compliance with crane Mfg. specs)
+			</div>
+			<div class="Rtable-cell">
+				(t) safeguards and shields for moving equipment
+			</div>
+			<div class="Rtable-cell">
+				(u) legibility of critical marks and labels (e.g., warning signs, rated load labels)
+			</div>
+			<div class="Rtable-cell">
+				(v) inadequate oil level
+			</div>
+			<div class="Rtable-cell">
+				(w) corroded, cracked, or distorted lower blocks
+			</div>
+			<div class="Rtable-cell">
+				<h3>Preventative Maintenance Inspection Points and 15 Minute Repairs</h3>
+			</div>
+			<div class="Rtable-cell">
+				<h4>Bridge - Preventative Maintenance Inspection Points</h4>
+			</div>
+			<div class="Rtable-cell">
+				(a) Lubrication of Grease Nipples & Sensory Check of Oil Viscosity & Condition
+			</div>
+			<div class="Rtable-cell">
+				(b) Disassembly, Inspection and Measurements of Brakes
+			</div>
+			<div class="Rtable-cell">
+				(d) Disassembly, Inspection and Measurement of Electrical Contacts, Resistors & Brushes
+			</div>
+			<div class="Rtable-cell">
+				(e) Cleaning, Inspection and Measurement of Bridge Wheels
+			</div>
+			<div class="Rtable-cell">
+				<h4>Hoist/Trolley - Preventative Maintenance Inspection Points</h4>
+			</div>
+			<div class="Rtable-cell">
+				(a) Lubrication of Grease Nipples & Sensory Check of Oil Viscosity & Condition
+			</div>
+			<div class="Rtable-cell">
+				(b) Disassembly, Inspection and Measurements of Brakes
+			</div>
+			<div class="Rtable-cell">
+				(c) Cleaning, Inspection, Measurement & relubrication of drive Chain
+			</div>
+			<div class="Rtable-cell">
+				(d) Disassembly, Inspection and Measurement of Electrical Contacts, Resistors & Brushes
+			</div>
+			<div class="Rtable-cell">
+				(e) Cleaning, Inspection and Measurement of Trolley Wheels
+			</div>
+		</div>
+
+
+		<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+		<?!= include("inspcoversheet-js"); ?>
+</body>
+
+</html>
