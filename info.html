@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<base target="_top">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+	<?!= include("info-css"); ?>
+</head>
+
+<body>
+  <br><br>
+
+	<img src="https://www.multicretesystems.com/site/assets/files/1006/xwebsite_header_logo_r.png.pagespeed.ic.ZTJLSQIJrD.webp" alt="Multicrete Logo">
+	<br><br><br><br><br>
+
+	<div class="buttondiv">
+    <div class="innerbuttondiv">
+			<a href="https://docs.google.com/forms/d/e/1FAIpQLScvbTYxdeGo67kEP1Yz2Spm5XZUEqvOrpS0XdD-Ht8EgzPFHQ/viewform" target="_blank" id="prepostformbtn"
+				class="infobutton animated-button thar-three"><i class="material-icons left"></i>Pre & Post Inspection Form</a>
+		</div>
+		<div class="innerbuttondiv">
+			<a href="<?= ScriptApp.getService().getUrl(); ?>?v=prepost" id="prepostbtn"
+				class="infobutton animated-button thar-three prepostbtn"><i class="material-icons left"></i>Pre &
+				Post Use Inspection Sheet</a>
+		</div>
+		<div class="innerbuttondiv">
+			<a href="<?= ScriptApp.getService().getUrl(); ?>?v=inspcoversheet" id="inspcoverbtn"
+				class="infobutton animated-button thar-three"><i class="material-icons left"></i>Inspection
+				Cover Sheet</a>
+		</div>
+		<div class="innerbuttondiv">
+			<a href="<?= ScriptApp.getService().getUrl(); ?>?v=equiphistory" id="equiphistbtn"
+				class="infobutton animated-button thar-three"><i class="material-icons left"></i>Equipment
+				History</a>
+		</div>
+	</div>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+	<?!= include("info-js"); ?>
+</body>
+
+</html>
