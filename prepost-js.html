@@ -1,0 +1,71 @@
+<script>
+	document.addEventListener("DOMContentLoaded", function(){
+    google.script.run.withSuccessHandler(generateTable).getTableData();
+    google.script.run.withSuccessHandler(generateTableHeaders).getTableHeaders();
+  });
+
+  function generateTableHeaders(tableh){
+    let thead = document.getElementById("prepost-tablehead");
+    const tr = document.createElement('tr');
+    tr.classList.add("Rtable");
+    tr.classList.add("Rtable--9cols");
+    thead.appendChild(tr);
+    for (i = 0; i < tableh.length; i++) {
+      for(let j = 0; j < tableh[i].length; j++){
+        let th = document.createElement('th');
+        th.classList.add("Rtable-cell");
+        //th.classList.add("Rtable-cell--orange");
+        //th.classList.add("Rtable-cell--head");
+        th.appendChild(document.createTextNode(tableh[i][j]));
+        tr.appendChild(th);
+      }
+    }
+  }
+
+  function generateTable(tablebod){
+    let tbody = document.getElementById("prepost-tablebody");
+    const tr = document.createElement('tr');
+    tr.classList.add("Rtable");
+    tr.classList.add("Rtable--9cols");
+    for(let i = 0; i < tablebod.length; i++) {
+      for(let j = 0; j < tablebod[i].length; j++){
+        tbody.appendChild(tr);
+        let td = document.createElement('td');
+        td.classList.add("Rtable-cell");
+        //th.classList.add("Rtable-cell--head");
+        td.appendChild(document.createTextNode(tablebod[i][j]));
+        tr.appendChild(td);
+      }
+    }
+    formatCells();
+  }
+
+  function formatCells(){
+    const tbody = document.getElementById("prepost-tablebody"),
+        cells = tbody.getElementsByTagName('td'),
+        colors = ['green', 'orange', 'red', 'gray'];
+    for (let c = 0, len = cells.length; c < len; c++){
+        if (cells[c].cellIndex > 0){
+            switch (cells[c].textContent || cells[c].innerText){
+                case "OK":
+                    cells[c].style.backgroundColor = colors[0];
+                    break;
+                case "Failed":
+                    cells[c].style.backgroundColor = colors[2];
+                    break;
+                case "TBD":
+                    cells[c].style.backgroundColor = colors[3];
+                    break;
+                case "Inspection Due":
+                    cells[c].style.backgroundColor = colors[2];
+                    break;
+                case "Inspection Up-to-date":
+                    cells[c].style.backgroundColor = colors[0];
+                    break;
+            }
+        }
+    }
+  }
+
+
+</script>
