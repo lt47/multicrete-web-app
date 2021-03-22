@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<base target="_top">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<?!= include("prepost-css"); ?>
+</head>
+
+<body>
+	<nav role="navigation">
+		<ul>
+			<li><a href="<?= ScriptApp.getService().getUrl(); ?>?v=info">Home</a></li>
+			<li><a href="#" aria-haspopup="true">Pages</a>
+				<ul class="dropdown" aria-label="submenu">
+          <li><a href="https://docs.google.com/forms/d/e/1FAIpQLScvbTYxdeGo67kEP1Yz2Spm5XZUEqvOrpS0XdD-Ht8EgzPFHQ/viewform" target="_blank" >Pre & Post Inspections Form</a></li>
+					<li><a href="<?= ScriptApp.getService().getUrl(); ?>?v=prepost">Pre & Post Inspections Sheet</a></li>
+					<li><a href="<?= ScriptApp.getService().getUrl(); ?>?v=inspcoversheet">Inspection Cover Sheet</a></li>
+					<li><a href="<?= ScriptApp.getService().getUrl(); ?>?v=equiphistory">Equipment History</a></li>
+				</ul>
+			</li>
+		</ul>
+	</nav>
+  <br>
+
+
+	<div id="imagewrap">
+		<img src="https://www.multicretesystems.com/site/assets/files/1006/xfooter_logo_r.png.pagespeed.ic.bKmBV7JcVG.png" alt="Multicrete Logo"></div>
+
+		<br><br>
+
+		<center>
+			<div class="Rtable-cell">
+				<h1>Pre & Post Use Operators' Inspection</h1>
+			</div>
+		</center>
+
+
+		<br>
+		<hr>
+
+
+		<table>
+			<thead id="prepost-tablehead">
+			</thead>
+			<tbody id="prepost-tablebody">
+			</tbody>
+		</table>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+		<?!= include("prepost-js"); ?>
+</body>
+
+</html>
