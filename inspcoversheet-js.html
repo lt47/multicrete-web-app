@@ -1,0 +1,501 @@
+<script>
+	/*document.addEventListener('DOMContentLoaded', function(){
+    const elems = document.querySelectorAll('select');
+    const instances = M.FormSelect.init(elems);
+  });*/
+
+
+document.getElementById("inspdate").addEventListener("change", getInspDeets);
+document.getElementById("inspdate").addEventListener("change", resetFields);
+document.getElementById("assetno").addEventListener("change", resetFields);
+document.getElementById("assetno").addEventListener("change", reloadInspOpts);
+
+function reloadInspOpts(){
+  const assetno = document.getElementById("assetno").value;
+  const inspdate = document.getElementById("inspdate").value;
+
+  google.script.run.withSuccessHandler(updateInspDate).sortDatebyAsset(assetno);
+  
+} 
+
+function updateInspDate(filtereddates){
+  const inspdate = document.getElementById("inspdate");
+  
+  while (inspdate.options.length) {
+    inspdate.remove(0);
+  }
+
+  for (let i = 0; i < filtereddates.length; i++) {
+    const inspOptObject = document.createElement("option");
+    inspOptObject.text = filtereddates[i];
+    //inspOptObject.value = filtereddates[i];
+    inspdate.appendChild(inspOptObject);
+    //M.FormSelect.init(inspdate);
+    
+  }
+  getInspDeets();
+  return;
+}
+
+function getInspDeets(){
+  const assetno = document.getElementById("assetno").value;
+  const inspdate = document.getElementById("inspdate").value;
+
+  //const selectedDate = inspdate.options[inspdate.selectedIndex].value;
+  
+  google.script.run.withSuccessHandler(updateInspCover).getInspCover(assetno, inspdate);
+}
+
+
+function updateInspCover(deets){
+  const cranestatusDiv = document.getElementById("cranestatus");
+  const insptypeDiv = document.getElementById("insptype");
+  const jobdescDiv = document.getElementById("jobdesc");
+  const bridgecapDiv = document.getElementById("bridgecap");
+  const bridgemfrDiv = document.getElementById("bridgemfr");
+  const bridgemodelDiv = document.getElementById("bridgemodel");
+  const bridgetypeDiv = document.getElementById("bridgetype");
+  const bridgeserialnoDiv = document.getElementById("bridgeserialno");
+  const mininspsummDiv = document.getElementById("mininspsumm");
+  const maxinspsummDiv = document.getElementById("maxinspsumm");
+  const bridgedefectsdetailsDiv = document.getElementById("bridgedefectsdetails");
+  const prevmaintinspsummDiv = document.getElementById("prevmaintinspsumm");
+  const prevmaintdefectsdetailsDiv = document.getElementById("prevmaintdefectsdetails");
+  const hoist1capDiv = document.getElementById("hoist1cap");
+  const hoist1mfrDiv = document.getElementById("hoist1mfr");
+  const hoist1modelDiv = document.getElementById("hoist1model");
+  const hoist1typeDiv = document.getElementById("hoist1type");
+  const hoist1serialnoDiv = document.getElementById("hoist1serialno");
+  const hoist1mininspsummDiv = document.getElementById("hoist1mininspsumm");
+  const hoist1maxinspsummDiv = document.getElementById("hoist1maxinspsumm");
+  const hoist1defectsdetailsDiv = document.getElementById("hoist1defectsdetails");
+  const hoist1prevmaintinspsummDiv = document.getElementById("hoist1prevmaintinspsumm");
+  const hoist1prevmaintdefectsdetailsDiv = document.getElementById("hoist1prevmaintdefectsdetails");
+  const hoist2capDiv = document.getElementById("hoist2cap");
+  const hoist2mfrDiv = document.getElementById("hoist2mfr");
+  const hoist2modelDiv = document.getElementById("hoist2model");
+  const hoist2typeDiv = document.getElementById("hoist2type");
+  const hoist2serialnoDiv = document.getElementById("hoist2serialno");
+  const hoist2mininspsummDiv = document.getElementById("hoist2mininspsumm");
+  const hoist2maxinspsummDiv = document.getElementById("hoist2maxinspsumm");
+  const hoist2defectsdetailsDiv = document.getElementById("hoist2defectsdetails");
+  const hoist2prevmaintinspsummDiv = document.getElementById("hoist2prevmaintinspsumm");
+  const hoist2prevmaintdefectsdetailsDiv = document.getElementById("hoist2prevmaintdefectsdetails");
+  const hoist3capDiv = document.getElementById("hoist3cap");
+  const hoist3mfrDiv = document.getElementById("hoist3mfr");
+  const hoist3modelDiv = document.getElementById("hoist3model");
+  const hoist3typeDiv = document.getElementById("hoist3type");
+  const hoist3serialnoDiv = document.getElementById("hoist3serialno");
+  const hoist3mininspsummDiv = document.getElementById("hoist3mininspsumm");
+  const hoist3maxinspsummDiv = document.getElementById("hoist3maxinspsumm");
+  const hoist3defectsdetailsDiv = document.getElementById("hoist3defectsdetails");
+  const hoist3prevmaintinspsummDiv = document.getElementById("hoist3prevmaintinspsumm");
+  const hoist3prevmaintdefectsdetailsDiv = document.getElementById("hoist3prevmaintdefectsdetails");
+  const hoist4capDiv = document.getElementById("hoist4cap");
+  const hoist4mfrDiv = document.getElementById("hoist4mfr");
+  const hoist4modelDiv = document.getElementById("hoist4model");
+  const hoist4typeDiv = document.getElementById("hoist4type");
+  const hoist4serialnoDiv = document.getElementById("hoist4serialno");
+  const hoist4mininspsummDiv = document.getElementById("hoist4mininspsumm");
+  const hoist4maxinspsummDiv = document.getElementById("hoist4maxinspsumm");
+  const hoist4defectsdetailsDiv = document.getElementById("hoist4defectsdetails");
+  const hoist4prevmaintinspsummDiv = document.getElementById("hoist4prevmaintinspsumm");
+  const hoist4prevmaintdefectsdetailsDiv = document.getElementById("hoist4prevmaintdefectsdetails");
+  const hoist5capDiv = document.getElementById("hoist5cap");
+  const hoist5mfrDiv = document.getElementById("hoist5mfr");
+  const hoist5modelDiv = document.getElementById("hoist5model");
+  const hoist5typeDiv = document.getElementById("hoist5type");
+  const hoist5serialnoDiv = document.getElementById("hoist5serialno");
+  const hoist5mininspsummDiv = document.getElementById("hoist5mininspsumm");
+  const hoist5maxinspsummDiv = document.getElementById("hoist5maxinspsumm");
+  const hoist5defectsdetailsDiv = document.getElementById("hoist5defectsdetails");
+  const hoist5prevmaintinspsummDiv = document.getElementById("hoist5prevmaintinspsumm");
+  const hoist5prevmaintdefectsdetailsDiv = document.getElementById("hoist5prevmaintdefectsdetails");
+
+
+  const cranestatus = document.createTextNode(deets[0]);
+  const insptype = document.createTextNode(deets[1]);
+  const jobdesc = document.createTextNode(deets[2]);
+  const bridgecap = document.createTextNode(deets[3]);
+  const bridgemfr = document.createTextNode(deets[4]);
+  const bridgemodel = document.createTextNode(deets[5]);
+  const bridgetype = document.createTextNode(deets[6]);
+  const bridgeserialno = document.createTextNode(deets[7]);
+  const mininspsumm = document.createTextNode(deets[8]);
+  const maxinspsumm = document.createTextNode(deets[9]);
+  const bridgedefectsdetails = document.createTextNode(deets[10]);
+  const prevmaintinspsumm = document.createTextNode(deets[11]);
+  const prevmaintdefectsdetails = document.createTextNode(deets[12]);
+  const hoist1cap = document.createTextNode(deets[13]);
+  const hoist1mfr = document.createTextNode(deets[14]);
+  const hoist1model = document.createTextNode(deets[15]);
+  const hoist1type = document.createTextNode(deets[16]);
+  const hoist1serialno = document.createTextNode(deets[17]);
+  const hoist1mininspsumm = document.createTextNode(deets[18]);
+  const hoist1maxinspsumm = document.createTextNode(deets[19]);
+  const hoist1defectsdetails = document.createTextNode(deets[20]);
+  const hoist1prevmaintinspsumm = document.createTextNode(deets[21]);
+  const hoist1prevmaintdefectsdetails = document.createTextNode(deets[22]);
+  const hoist2cap = document.createTextNode(deets[23]);
+  const hoist2mfr = document.createTextNode(deets[24]);
+  const hoist2model = document.createTextNode(deets[25]);
+  const hoist2type = document.createTextNode(deets[26]);
+  const hoist2serialno = document.createTextNode(deets[27]);
+  const hoist2mininspsumm = document.createTextNode(deets[28]);
+  const hoist2maxinspsumm = document.createTextNode(deets[29]);
+  const hoist2defectsdetails = document.createTextNode(deets[30]);
+  const hoist2prevmaintinspsumm = document.createTextNode(deets[31]);
+  const hoist2prevmaintdefectsdetails = document.createTextNode(deets[32]);
+  const hoist3cap = document.createTextNode(deets[33]);
+  const hoist3mfr = document.createTextNode(deets[34]);
+  const hoist3model = document.createTextNode(deets[35]);
+  const hoist3type = document.createTextNode(deets[36]);
+  const hoist3serialno = document.createTextNode(deets[37]);
+  const hoist3mininspsumm = document.createTextNode(deets[38]);
+  const hoist3maxinspsumm = document.createTextNode(deets[39]);
+  const hoist3defectsdetails = document.createTextNode(deets[40]);
+  const hoist3prevmaintinspsumm = document.createTextNode(deets[41]);
+  const hoist3prevmaintdefectsdetails = document.createTextNode(deets[42]);
+  const hoist4cap = document.createTextNode(deets[43]);
+  const hoist4mfr = document.createTextNode(deets[44]);
+  const hoist4model = document.createTextNode(deets[45]);
+  const hoist4type = document.createTextNode(deets[46]);
+  const hoist4serialno = document.createTextNode(deets[47]);
+  const hoist4mininspsumm = document.createTextNode(deets[48]);
+  const hoist4maxinspsumm = document.createTextNode(deets[49]);
+  const hoist4defectsdetails = document.createTextNode(deets[50]);
+  const hoist4prevmaintinspsumm = document.createTextNode(deets[51]);
+  const hoist4prevmaintdefectsdetails = document.createTextNode(deets[52]);
+  const hoist5cap = document.createTextNode(deets[53]);
+  const hoist5mfr = document.createTextNode(deets[54]);
+  const hoist5model = document.createTextNode(deets[55]);
+  const hoist5type = document.createTextNode(deets[56]);
+  const hoist5serialno = document.createTextNode(deets[57]);
+  const hoist5mininspsumm = document.createTextNode(deets[58]);
+  const hoist5maxinspsumm = document.createTextNode(deets[59]);
+  const hoist5defectsdetails = document.createTextNode(deets[60]);
+  const hoist5prevmaintinspsumm = document.createTextNode(deets[61]);
+  const hoist5prevmaintdefectsdetails = document.createTextNode(deets[62]);
+
+
+  cranestatusDiv.appendChild(cranestatus);
+  insptypeDiv.appendChild(insptype);
+  jobdescDiv.appendChild(jobdesc);
+  bridgecapDiv.appendChild(bridgecap);
+  bridgemfrDiv.appendChild(bridgemfr);
+  bridgemodelDiv.appendChild(bridgemodel);
+  bridgetypeDiv.appendChild(bridgetype);
+  bridgeserialnoDiv.appendChild(bridgeserialno);
+  mininspsummDiv.appendChild(mininspsumm);
+  maxinspsummDiv.appendChild(maxinspsumm);
+  bridgedefectsdetailsDiv.appendChild(bridgedefectsdetails);
+  prevmaintinspsummDiv.appendChild(prevmaintinspsumm);
+  prevmaintdefectsdetailsDiv.appendChild(prevmaintdefectsdetails);
+  hoist1capDiv.appendChild(hoist1cap);
+  hoist1mfrDiv.appendChild(hoist1mfr);
+  hoist1modelDiv.appendChild(hoist1model);
+  hoist1typeDiv.appendChild(hoist1type);
+  hoist1serialnoDiv.appendChild(hoist1serialno);
+  hoist1mininspsummDiv.appendChild(hoist1mininspsumm);
+  hoist1maxinspsummDiv.appendChild(hoist1maxinspsumm);
+  hoist1defectsdetailsDiv.appendChild(hoist1defectsdetails);
+  hoist1prevmaintinspsummDiv.appendChild(hoist1prevmaintinspsumm);
+  hoist1prevmaintdefectsdetailsDiv.appendChild(hoist1prevmaintdefectsdetails);
+  hoist2capDiv.appendChild(hoist2cap);
+  hoist2mfrDiv.appendChild(hoist2mfr);
+  hoist2modelDiv.appendChild(hoist2model);
+  hoist2typeDiv.appendChild(hoist2type);
+  hoist2serialnoDiv.appendChild(hoist2serialno);
+  hoist2mininspsummDiv.appendChild(hoist2mininspsumm);
+  hoist2maxinspsummDiv.appendChild(hoist2maxinspsumm);
+  hoist2defectsdetailsDiv.appendChild(hoist2defectsdetails);
+  hoist2prevmaintinspsummDiv.appendChild(hoist2prevmaintinspsumm);
+  hoist2prevmaintdefectsdetailsDiv.appendChild(hoist2prevmaintdefectsdetails);
+  hoist3capDiv.appendChild(hoist3cap);
+  hoist3mfrDiv.appendChild(hoist3mfr);
+  hoist3modelDiv.appendChild(hoist3model);
+  hoist3typeDiv.appendChild(hoist3type);
+  hoist3serialnoDiv.appendChild(hoist3serialno);
+  hoist3mininspsummDiv.appendChild(hoist3mininspsumm);
+  hoist3maxinspsummDiv.appendChild(hoist3maxinspsumm);
+  hoist3defectsdetailsDiv.appendChild(hoist3defectsdetails);
+  hoist3prevmaintinspsummDiv.appendChild(hoist3prevmaintinspsumm);
+  hoist3prevmaintdefectsdetailsDiv.appendChild(hoist3prevmaintdefectsdetails);
+  hoist4capDiv.appendChild(hoist4cap);
+  hoist4mfrDiv.appendChild(hoist4mfr);
+  hoist4modelDiv.appendChild(hoist4model);
+  hoist4typeDiv.appendChild(hoist4type);
+  hoist4serialnoDiv.appendChild(hoist4serialno);
+  hoist4mininspsummDiv.appendChild(hoist4mininspsumm);
+  hoist4maxinspsummDiv.appendChild(hoist4maxinspsumm);
+  hoist4defectsdetailsDiv.appendChild(hoist4defectsdetails);
+  hoist4prevmaintinspsummDiv.appendChild(hoist4prevmaintinspsumm);
+  hoist4prevmaintdefectsdetailsDiv.appendChild(hoist4prevmaintdefectsdetails);
+  hoist5capDiv.appendChild(hoist5cap);
+  hoist5mfrDiv.appendChild(hoist5mfr);
+  hoist5modelDiv.appendChild(hoist5model);
+  hoist5typeDiv.appendChild(hoist5type);
+  hoist5serialnoDiv.appendChild(hoist5serialno);
+  hoist5mininspsummDiv.appendChild(hoist5mininspsumm);
+  hoist5maxinspsummDiv.appendChild(hoist5maxinspsumm);
+  hoist5defectsdetailsDiv.appendChild(hoist5defectsdetails);
+  hoist5prevmaintinspsummDiv.appendChild(hoist5prevmaintinspsumm);
+  hoist5prevmaintdefectsdetailsDiv.appendChild(hoist5prevmaintdefectsdetails);
+  //M.updateTextFields();
+}
+
+function resetFields(){
+  const cranestatusDiv = document.getElementById("cranestatus");
+  if (cranestatusDiv.childNodes[0] =! null){
+    cranestatusDiv.removeChild(cranestatusDiv.childNodes[0]);
+  }
+  const insptypeDiv = document.getElementById("insptype");
+  if (insptypeDiv.childNodes[0] =! null){
+    insptypeDiv.removeChild(insptypeDiv.childNodes[0]);
+  }  
+  const jobdescDiv = document.getElementById("jobdesc");
+  if (jobdescDiv.childNodes[0] =! null){
+    jobdescDiv.removeChild(jobdescDiv.childNodes[0]);
+  }
+  const bridgecapDiv = document.getElementById("bridgecap");
+  if (bridgecapDiv.childNodes[0] =! null){
+    bridgecapDiv.removeChild(bridgecapDiv.childNodes[0]);
+  }
+  const bridgemfrDiv = document.getElementById("bridgemfr");
+  if (bridgemfrDiv.childNodes[0] =! null){
+    bridgemfrDiv.removeChild(bridgemfrDiv.childNodes[0]);
+  }
+  const bridgemodelDiv = document.getElementById("bridgemodel");
+  if (bridgemodelDiv.childNodes[0] =! null){
+    bridgemodelDiv.removeChild(bridgemodelDiv.childNodes[0]);
+  }
+  const bridgetypeDiv = document.getElementById("bridgetype");
+  if (bridgetypeDiv.childNodes[0] =! null){
+    bridgetypeDiv.removeChild(bridgetypeDiv.childNodes[0]);
+  }
+  const bridgeserialnoDiv = document.getElementById("bridgeserialno");
+  if (bridgeserialnoDiv.childNodes[0] =! null){
+    bridgeserialnoDiv.removeChild(bridgeserialnoDiv.childNodes[0]);
+  }  
+  const mininspsummDiv = document.getElementById("mininspsumm");
+  if (mininspsummDiv.childNodes[0] =! null){
+    mininspsummDiv.removeChild(mininspsummDiv.childNodes[0]);
+  }
+  const maxinspsummDiv = document.getElementById("maxinspsumm");
+  if (maxinspsummDiv.childNodes[0] =! null){
+    maxinspsummDiv.removeChild(maxinspsummDiv.childNodes[0]);
+  }   
+  const bridgedefectsdetailsDiv = document.getElementById("bridgedefectsdetails");
+  if (bridgedefectsdetailsDiv.childNodes[0] =! null){
+    bridgedefectsdetailsDiv.removeChild(bridgedefectsdetailsDiv.childNodes[0]);
+  }
+  const prevmaintinspsummDiv = document.getElementById("prevmaintinspsumm");
+  if (prevmaintinspsummDiv.childNodes[0] =! null){
+    prevmaintinspsummDiv.removeChild(prevmaintinspsummDiv.childNodes[0]);
+  }   
+  const prevmaintdefectsdetailsDiv = document.getElementById("prevmaintdefectsdetails");
+  if (prevmaintdefectsdetailsDiv.childNodes[0] =! null){
+    prevmaintdefectsdetailsDiv.removeChild(prevmaintdefectsdetailsDiv.childNodes[0]);
+  }           
+  const hoist1capDiv = document.getElementById("hoist1cap");
+  if (hoist1capDiv.childNodes[0] =! null){
+    hoist1capDiv.removeChild(hoist1capDiv.childNodes[0]);
+  }
+  const hoist1mfrDiv = document.getElementById("hoist1mfr");
+  if (hoist1mfrDiv.childNodes[0] =! null){
+    hoist1mfrDiv.removeChild(hoist1mfrDiv.childNodes[0]);
+  }
+  const hoist1modelDiv = document.getElementById("hoist1model");
+  if (hoist1modelDiv.childNodes[0] =! null){
+    hoist1modelDiv.removeChild(hoist1modelDiv.childNodes[0]);
+  }
+  const hoist1typeDiv = document.getElementById("hoist1type");
+  if (hoist1typeDiv.childNodes[0] =! null){
+    hoist1typeDiv.removeChild(hoist1typeDiv.childNodes[0]);
+  }
+  const hoist1serialnoDiv = document.getElementById("hoist1serialno");
+  if (hoist1serialnoDiv.childNodes[0] =! null){
+    hoist1serialnoDiv.removeChild(hoist1serialnoDiv.childNodes[0]);
+  }  
+  const hoist1mininspsummDiv = document.getElementById("hoist1mininspsumm");
+  if (hoist1mininspsummDiv.childNodes[0] =! null){
+    hoist1mininspsummDiv.removeChild(hoist1mininspsummDiv.childNodes[0]);
+  }
+  const hoist1maxinspsummDiv = document.getElementById("hoist1maxinspsumm");
+  if (hoist1maxinspsummDiv.childNodes[0] =! null){
+    hoist1maxinspsummDiv.removeChild(hoist1maxinspsummDiv.childNodes[0]);
+  }   
+  const hoist1defectsdetailsDiv = document.getElementById("hoist1defectsdetails");
+  if (hoist1defectsdetailsDiv.childNodes[0] =! null){
+    hoist1defectsdetailsDiv.removeChild(hoist1defectsdetailsDiv.childNodes[0]);
+  }
+  const hoist1prevmaintinspsummDiv = document.getElementById("hoist1prevmaintinspsumm");
+  if (hoist1prevmaintinspsummDiv.childNodes[0] =! null){
+    hoist1prevmaintinspsummDiv.removeChild(hoist1prevmaintinspsummDiv.childNodes[0]);
+  }   
+  const hoist1prevmaintdefectsdetailsDiv = document.getElementById("hoist1prevmaintdefectsdetails");
+  if (hoist1prevmaintdefectsdetailsDiv.childNodes[0] =! null){
+    hoist1prevmaintdefectsdetailsDiv.removeChild(hoist1prevmaintdefectsdetailsDiv.childNodes[0]);
+  }
+  const hoist2capDiv = document.getElementById("hoist2cap");
+  if (hoist2capDiv.childNodes[0] =! null){
+    hoist2capDiv.removeChild(hoist2capDiv.childNodes[0]);
+  }
+  const hoist2mfrDiv = document.getElementById("hoist2mfr");
+  if (hoist2mfrDiv.childNodes[0] =! null){
+    hoist2mfrDiv.removeChild(hoist2mfrDiv.childNodes[0]);
+  }
+  const hoist2modelDiv = document.getElementById("hoist2model");
+  if (hoist2modelDiv.childNodes[0] =! null){
+    hoist2modelDiv.removeChild(hoist2modelDiv.childNodes[0]);
+  }
+  const hoist2typeDiv = document.getElementById("hoist2type");
+  if (hoist2typeDiv.childNodes[0] =! null){
+    hoist2typeDiv.removeChild(hoist2typeDiv.childNodes[0]);
+  }
+  const hoist2serialnoDiv = document.getElementById("hoist2serialno");
+  if (hoist2serialnoDiv.childNodes[0] =! null){
+    hoist2serialnoDiv.removeChild(hoist2serialnoDiv.childNodes[0]);
+  }  
+  const hoist2mininspsummDiv = document.getElementById("hoist2mininspsumm");
+  if (hoist2mininspsummDiv.childNodes[0] =! null){
+    hoist2mininspsummDiv.removeChild(hoist2mininspsummDiv.childNodes[0]);
+  }
+  const hoist2maxinspsummDiv = document.getElementById("hoist2maxinspsumm");
+  if (hoist2maxinspsummDiv.childNodes[0] =! null){
+    hoist2maxinspsummDiv.removeChild(hoist2maxinspsummDiv.childNodes[0]);
+  }   
+  const hoist2defectsdetailsDiv = document.getElementById("hoist2defectsdetails");
+  if (hoist2defectsdetailsDiv.childNodes[0] =! null){
+    hoist2defectsdetailsDiv.removeChild(hoist2defectsdetailsDiv.childNodes[0]);
+  }
+  const hoist2prevmaintinspsummDiv = document.getElementById("hoist2prevmaintinspsumm");
+  if (hoist2prevmaintinspsummDiv.childNodes[0] =! null){
+    hoist2prevmaintinspsummDiv.removeChild(hoist2prevmaintinspsummDiv.childNodes[0]);
+  }   
+  const hoist2prevmaintdefectsdetailsDiv = document.getElementById("hoist2prevmaintdefectsdetails");
+  if (hoist2prevmaintdefectsdetailsDiv.childNodes[0] =! null){
+    hoist2prevmaintdefectsdetailsDiv.removeChild(hoist2prevmaintdefectsdetailsDiv.childNodes[0]);
+  }
+  const hoist3capDiv = document.getElementById("hoist3cap");
+  if (hoist3capDiv.childNodes[0] =! null){
+    hoist3capDiv.removeChild(hoist3capDiv.childNodes[0]);
+  }
+  const hoist3mfrDiv = document.getElementById("hoist3mfr");
+  if (hoist3mfrDiv.childNodes[0] =! null){
+    hoist3mfrDiv.removeChild(hoist3mfrDiv.childNodes[0]);
+  }
+  const hoist3modelDiv = document.getElementById("hoist3model");
+  if (hoist3modelDiv.childNodes[0] =! null){
+    hoist3modelDiv.removeChild(hoist3modelDiv.childNodes[0]);
+  }
+  const hoist3typeDiv = document.getElementById("hoist3type");
+  if (hoist3typeDiv.childNodes[0] =! null){
+    hoist3typeDiv.removeChild(hoist3typeDiv.childNodes[0]);
+  }
+  const hoist3serialnoDiv = document.getElementById("hoist3serialno");
+  if (hoist3serialnoDiv.childNodes[0] =! null){
+    hoist3serialnoDiv.removeChild(hoist3serialnoDiv.childNodes[0]);
+  }  
+  const hoist3mininspsummDiv = document.getElementById("hoist3mininspsumm");
+  if (hoist3mininspsummDiv.childNodes[0] =! null){
+    hoist3mininspsummDiv.removeChild(hoist3mininspsummDiv.childNodes[0]);
+  }
+  const hoist3maxinspsummDiv = document.getElementById("hoist3maxinspsumm");
+  if (hoist3maxinspsummDiv.childNodes[0] =! null){
+    hoist3maxinspsummDiv.removeChild(hoist3maxinspsummDiv.childNodes[0]);
+  }   
+  const hoist3defectsdetailsDiv = document.getElementById("hoist3defectsdetails");
+  if (hoist3defectsdetailsDiv.childNodes[0] =! null){
+    hoist3defectsdetailsDiv.removeChild(hoist3defectsdetailsDiv.childNodes[0]);
+  }
+  const hoist3prevmaintinspsummDiv = document.getElementById("hoist3prevmaintinspsumm");
+  if (hoist3prevmaintinspsummDiv.childNodes[0] =! null){
+    hoist3prevmaintinspsummDiv.removeChild(hoist3prevmaintinspsummDiv.childNodes[0]);
+  }   
+  const hoist3prevmaintdefectsdetailsDiv = document.getElementById("hoist3prevmaintdefectsdetails");
+  if (hoist3prevmaintdefectsdetailsDiv.childNodes[0] =! null){
+    hoist3prevmaintdefectsdetailsDiv.removeChild(hoist3prevmaintdefectsdetailsDiv.childNodes[0]);
+  }
+  const hoist4capDiv = document.getElementById("hoist4cap");
+  if (hoist4capDiv.childNodes[0] =! null){
+    hoist4capDiv.removeChild(hoist4capDiv.childNodes[0]);
+  }
+  const hoist4mfrDiv = document.getElementById("hoist4mfr");
+  if (hoist4mfrDiv.childNodes[0] =! null){
+    hoist4mfrDiv.removeChild(hoist4mfrDiv.childNodes[0]);
+  }
+  const hoist4modelDiv = document.getElementById("hoist4model");
+  if (hoist4modelDiv.childNodes[0] =! null){
+    hoist4modelDiv.removeChild(hoist4modelDiv.childNodes[0]);
+  }
+  const hoist4typeDiv = document.getElementById("hoist4type");
+  if (hoist4typeDiv.childNodes[0] =! null){
+    hoist4typeDiv.removeChild(hoist4typeDiv.childNodes[0]);
+  }
+  const hoist4serialnoDiv = document.getElementById("hoist4serialno");
+  if (hoist4serialnoDiv.childNodes[0] =! null){
+    hoist4serialnoDiv.removeChild(hoist4serialnoDiv.childNodes[0]);
+  }  
+  const hoist4mininspsummDiv = document.getElementById("hoist4mininspsumm");
+  if (hoist4mininspsummDiv.childNodes[0] =! null){
+    hoist4mininspsummDiv.removeChild(hoist4mininspsummDiv.childNodes[0]);
+  }
+  const hoist4maxinspsummDiv = document.getElementById("hoist4maxinspsumm");
+  if (hoist4maxinspsummDiv.childNodes[0] =! null){
+    hoist4maxinspsummDiv.removeChild(hoist4maxinspsummDiv.childNodes[0]);
+  }   
+  const hoist4defectsdetailsDiv = document.getElementById("hoist4defectsdetails");
+  if (hoist4defectsdetailsDiv.childNodes[0] =! null){
+    hoist4defectsdetailsDiv.removeChild(hoist4defectsdetailsDiv.childNodes[0]);
+  }
+  const hoist4prevmaintinspsummDiv = document.getElementById("hoist4prevmaintinspsumm");
+  if (hoist4prevmaintinspsummDiv.childNodes[0] =! null){
+    hoist4prevmaintinspsummDiv.removeChild(hoist4prevmaintinspsummDiv.childNodes[0]);
+  }   
+  const hoist4prevmaintdefectsdetailsDiv = document.getElementById("hoist4prevmaintdefectsdetails");
+  if (hoist4prevmaintdefectsdetailsDiv.childNodes[0] =! null){
+    hoist4prevmaintdefectsdetailsDiv.removeChild(hoist4prevmaintdefectsdetailsDiv.childNodes[0]);
+  }
+  const hoist5capDiv = document.getElementById("hoist5cap");
+  if (hoist5capDiv.childNodes[0] =! null){
+    hoist5capDiv.removeChild(hoist5capDiv.childNodes[0]);
+  }
+  const hoist5mfrDiv = document.getElementById("hoist5mfr");
+  if (hoist5mfrDiv.childNodes[0] =! null){
+    hoist5mfrDiv.removeChild(hoist5mfrDiv.childNodes[0]);
+  }
+  const hoist5modelDiv = document.getElementById("hoist5model");
+  if (hoist5modelDiv.childNodes[0] =! null){
+    hoist5modelDiv.removeChild(hoist5modelDiv.childNodes[0]);
+  }
+  const hoist5typeDiv = document.getElementById("hoist5type");
+  if (hoist5typeDiv.childNodes[0] =! null){
+    hoist5typeDiv.removeChild(hoist5typeDiv.childNodes[0]);
+  }
+  const hoist5serialnoDiv = document.getElementById("hoist5serialno");
+  if (hoist5serialnoDiv.childNodes[0] =! null){
+    hoist5serialnoDiv.removeChild(hoist5serialnoDiv.childNodes[0]);
+  }  
+  const hoist5mininspsummDiv = document.getElementById("hoist5mininspsumm");
+  if (hoist5mininspsummDiv.childNodes[0] =! null){
+    hoist5mininspsummDiv.removeChild(hoist5mininspsummDiv.childNodes[0]);
+  }
+  const hoist5maxinspsummDiv = document.getElementById("hoist5maxinspsumm");
+  if (hoist5maxinspsummDiv.childNodes[0] =! null){
+    hoist5maxinspsummDiv.removeChild(hoist5maxinspsummDiv.childNodes[0]);
+  }   
+  const hoist5defectsdetailsDiv = document.getElementById("hoist5defectsdetails");
+  if (hoist5defectsdetailsDiv.childNodes[0] =! null){
+    hoist5defectsdetailsDiv.removeChild(hoist5defectsdetailsDiv.childNodes[0]);
+  }
+  const hoist5prevmaintinspsummDiv = document.getElementById("hoist5prevmaintinspsumm");
+  if (hoist5prevmaintinspsummDiv.childNodes[0] =! null){
+    hoist5prevmaintinspsummDiv.removeChild(hoist5prevmaintinspsummDiv.childNodes[0]);
+  }   
+  const hoist5prevmaintdefectsdetailsDiv = document.getElementById("hoist5prevmaintdefectsdetails");
+  if (hoist5prevmaintdefectsdetailsDiv.childNodes[0] =! null){
+    hoist5prevmaintdefectsdetailsDiv.removeChild(hoist5prevmaintdefectsdetailsDiv.childNodes[0]);
+  }           
+}
+</script>
