@@ -1,0 +1,301 @@
+<style>
+	@import url(https://fonts.googleapis.com/css?family=Josefin+Sans:400,700);
+	@import url(https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css);
+
+	a {
+		text-decoration: none;
+	}
+
+	a:before {
+		text-decoration: none;
+	}
+
+	a:hover {
+		text-decoration: none;
+	}
+
+	html {
+		position: relative;
+		min-height: 100%;
+		width: 100%;
+		height: 100%;
+		margin: 0px;
+		padding: 0px;
+		overflow-x: hidden;
+		overflow-y: hidden;
+	}
+
+	body {
+		font-family: 'Josefin Sans', sans-serif;
+		background-color: #000000;
+		font-style: normal;
+		font-weight: 300;
+		margin: 0 0 100px;
+		text-align: center;
+		min-height: 100%;
+		height: 100%;
+		Dynamic font size based on screensize https: //css-tricks.com/books/fundamental-css-tactics/scale-typography-screen-size/ 
+			font-size: calc(14px + (26 - 14) * ((100vw - 300px) / (1600 - 300)));
+		line-height: calc(1.3em + (1.5 - 1.2) * ((100vw - 300px)/(1600 - 300)));
+		padding: 0px;
+		overflow-x: hidden;
+	}
+
+  body.prepost{
+    background-image: url("https://drive.google.com/uc?export=view&id=1T-wgRVk6eLNRmiulybs6s8t_RPQdVML7");
+		background-repeat: no-repeat;
+		background-size: 45%;
+    background-position: center bottom;
+  }
+
+  body.inspcover{
+    background-image: url("https://drive.google.com/uc?export=view&id=1bbG3YVtNEowSxg_hhO8s2LAKkJO9WEDj");
+		background-repeat: no-repeat;
+		background-size: 45%;
+    background-position: center bottom;
+  }
+
+  body.equiphist{
+    background-image: url("https://drive.google.com/uc?export=view&id=1o2uI8ouWt3js6mB_L08fPUtcOQTY-TUM");
+		background-repeat: no-repeat;
+		background-size: 45%;
+    background-position: center bottom;
+  }
+
+	.buttondiv {
+		margin: auto;
+		width: 100%;
+	}
+
+	.innerbuttondiv {
+		display: inline-block;
+	}
+
+	.infobutton {
+		border-radius: 4px;
+		background-color: #153787;
+		border: none;
+		color: #FFFFFF;
+		text-align: center;
+		white-space: nowrap;
+		font-size: 22px;
+		padding: 16px;
+		width: auto;
+		height: 10vh;
+		display: inline-flex;
+		align-items: center;
+		transition: all 0.5s;
+		cursor: pointer;
+		margin: 5px;
+	}
+
+
+	/* Thar Buttons */
+
+	a.animated-button.thar-one {
+		color: #fff;
+		cursor: pointer;
+		display: block;
+		position: relative;
+		border: 2px solid #F7CA18;
+		transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
+	}
+
+	a.animated-button.thar-one:hover {
+		color: #000 !important;
+		background-color: transparent;
+		text-shadow: none;
+	}
+
+	a.animated-button.thar-one:hover:before {
+		bottom: 0%;
+		top: auto;
+		height: 100%;
+	}
+
+	a.animated-button.thar-one:before {
+		display: block;
+		position: absolute;
+		left: 0px;
+		top: 0px;
+		height: 0px;
+		width: 100%;
+		z-index: -1;
+		content: '';
+		color: #000 !important;
+		background: #F7CA18;
+		transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
+	}
+
+	a.animated-button.thar-two {
+		color: #fff;
+		cursor: pointer;
+		display: block;
+		position: relative;
+		border: 2px solid #F7CA18;
+		transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
+	}
+
+	a.animated-button.thar-two:hover {
+		color: #000 !important;
+		background-color: transparent;
+		text-shadow: ntwo;
+	}
+
+	a.animated-button.thar-two:hover:before {
+		top: 0%;
+		bottom: auto;
+		height: 100%;
+	}
+
+	a.animated-button.thar-two:before {
+		display: block;
+		position: absolute;
+		left: 0px;
+		bottom: 0px;
+		height: 0px;
+		width: 100%;
+		z-index: -1;
+		content: '';
+		color: #000 !important;
+		background: #F7CA18;
+		transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
+	}
+
+	a.animated-button.thar-three {
+		color: #fff;
+		cursor: pointer;
+		position: relative;
+		border: 2px solid #F7CA18;
+		transition: all 0.4s cubic-bezier(0.42, 0, 0.58, 1);
+		0s;
+	}
+
+	a.animated-button.thar-three:hover {
+		color: #000 !important;
+		background-color: transparent;
+		text-shadow: nthree;
+	}
+
+	a.animated-button.thar-three:hover:before {
+		left: 0%;
+		right: auto;
+		width: 100%;
+	}
+
+	a.animated-button.thar-three:before {
+		display: block;
+		position: absolute;
+		top: 0px;
+		right: 0px;
+		height: 100%;
+		width: 0px;
+		z-index: -1;
+		content: '';
+		color: #000 !important;
+		background: #F7CA18;
+		transition: all 0.4s cubic-bezier(0.42, 0, 0.58, 1);
+		0s;
+	}
+
+	a.animated-button.thar-four {
+		color: #fff;
+		cursor: pointer;
+		display: block;
+		position: relative;
+		border: 2px solid #F7CA18;
+		transition: all 0.4s cubic-bezier(0.42, 0, 0.58, 1);
+		0s;
+	}
+
+	a.animated-button.thar-four:hover {
+		color: #000 !important;
+		background-color: transparent;
+		text-shadow: nfour;
+	}
+
+	a.animated-button.thar-four:hover:before {
+		right: 0%;
+		left: auto;
+		width: 100%;
+	}
+
+	a.animated-button.thar-four:before {
+		display: block;
+		position: absolute;
+		top: 0px;
+		left: 0px;
+		height: 100%;
+		width: 0px;
+		z-index: -1;
+		content: '';
+		color: #000 !important;
+		background: #F7CA18;
+		transition: all 0.4s cubic-bezier(0.42, 0, 0.58, 1);
+		0s;
+	}
+
+	/* Table column sizing
+================================== */
+	#testtable {
+		width: 100%;
+	}
+
+	.Rtable--2cols>.Rtable-cell {
+		width: 50%;
+	}
+
+	.Rtable--3cols>.Rtable-cell {
+		width: 33.33%;
+	}
+
+	.Rtable--4cols>.Rtable-cell {
+		width: 25%;
+	}
+
+	.Rtable--5cols>.Rtable-cell {
+		width: 20%;
+	}
+
+	.Rtable--6cols>.Rtable-cell {
+		width: 16.6%;
+	}
+
+	.Rtable--8cols>.Rtable-cell {
+		width: 12.5%;
+	}
+
+	.Rtable--9cols>.Rtable-cell {
+		width: 11.11%;
+	}
+
+	/* Apply styles
+================================== */
+	.Rtable {
+		position: relative;
+		//top: @bw;
+		//left: @bw; //compensate for border offset
+	}
+
+	.Rtable-cell {
+		margin: -@bw 0 0 -@bw; //border collapse offset
+		.Rtable-cell--light;
+	}
+
+	/* Cell styles
+================================== */
+	.Rtable-cell--dark {
+		background-color: slategrey;
+		border-color: darken(@tableColour, 10%);
+		color: white;
+
+		>h1,
+		>h2,
+		>h3,
+		>h4,
+		>h5,
+		>h6 {
+			color: white;
+		}
+	}
+</style>
