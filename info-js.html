@@ -1,0 +1,31 @@
+<script>
+	const prepostbutton = document.getElementById('prepostbtn');
+  const inspcoverbutton = document.getElementById('inspcoverbtn');
+  const equiphistbutton = document.getElementById('equiphistbtn');
+
+  const body = document.body;
+  
+  prepostbutton.onmouseover = function() {
+    body.className = 'prepost';
+  }
+  
+  prepostbutton.onmouseout = function() {
+    body.className = '';
+  }
+
+  inspcoverbutton.onmouseover = function() {
+    body.className = 'inspcover';
+  }
+  
+  inspcoverbutton.onmouseout = function() {
+    body.className = '';
+  }
+
+  equiphistbutton.onmouseover = function() {
+    body.className = 'equiphist';
+  }
+  
+  equiphistbutton.onmouseout = function() {
+    body.className = '';
+  }
+</script>
