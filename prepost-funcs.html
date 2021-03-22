@@ -1,0 +1,19 @@
+const sheetid = "";
+
+function getTableData() {
+  const ss = SpreadsheetApp.openById(sheetid);
+  const ws = ss.getSheetByName("Pre & Post Use Inspections");
+  const data = ws.getRange(3, 1, ws.getLastRow(), 9).getDisplayValues();
+  //Logger.log(data);
+
+  return data;
+}
+
+function getTableHeaders() {
+  const ss = SpreadsheetApp.openById(sheetid);
+  const ws = ss.getSheetByName("Pre & Post Use Inspections");
+  const data = ws.getRange(2, 1, 1, 9).getDisplayValues();
+  //Logger.log(data);
+
+  return data;
+}
