@@ -1,0 +1,52 @@
+function getEquipHistTableData(assetno, insptype) {
+  const ss = SpreadsheetApp.openById(sheetid);
+  const ws = ss.getSheetByName("AssetSearch");
+  const data = ws.getRange(1, 3, ws.getLastRow(), 21).getDisplayValues();
+
+  const techdata = ws.getRange(1, 3, ws.getLastRow(), 5).getDisplayValues().filter(function (r) {
+    return r[0] == assetno
+  });
+  const opsdata = ws.getRange(1, 10, ws.getLastRow(), 5).getDisplayValues().filter(function (r) {
+    return r[0] == assetno
+  });
+  const alldata = ws.getRange(1, 16, ws.getLastRow(), 5).getDisplayValues().filter(function (r) {
+    return r[0] == assetno
+  });
+
+  const mictest = ws.getRange("C1").getDisplayValue();
+
+  let tabledata = new Array();
+
+  let tabledate = "";
+  let tabletech = "";
+  let tablejobno = "";
+  let tabledetails = "";
+
+  for (let i = 0; i < data.length; i++) {
+    if (insptype == "Technical") {
+      tabledata = techdata;
+    }
+    else if (insptype == "Operator") {
+      tabledata = opsdata;
+    }
+    else if (insptype == "All") {
+      tabledata = alldata;
+    }
+  }
+
+  //tabledata.push(tabledate, tabletech, tablejobno, tabledetails);
+  //return Logger.log(ws.getRange(1, 3, ws.getLastRow(), 5).getDisplayValues());
+  //return Logger.log(tabledata);
+  return tabledata;
+}
+
+function getEquipHistTableHeaders() {
+  var heading = new Array();
+  heading[0] = "Asset Number";
+  heading[1] = "Work Details";
+  heading[2] = "Technician";
+  heading[3] = "Date";
+  heading[4] = "Job Number";
+
+  return heading;
+}
