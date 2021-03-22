@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<base target="_top">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"> -->
+	<?!= include("equiphistory-css"); ?>
+</head>
+
+<body>
+	<nav role="navigation">
+		<ul>
+			<li><a href="<?= ScriptApp.getService().getUrl(); ?>?v=info">Home</a></li>
+			<li><a href="#" aria-haspopup="true">Pages</a>
+				<ul class="dropdown" aria-label="submenu">
+					<li><a href="https://docs.google.com/forms/d/e/1FAIpQLScvbTYxdeGo67kEP1Yz2Spm5XZUEqvOrpS0XdD-Ht8EgzPFHQ/viewform" target="_blank" >Pre & Post Inspections Form</a></li>
+					<li><a href="<?= ScriptApp.getService().getUrl(); ?>?v=prepost">Pre & Post Inspections Sheet</a>
+					</li>
+					<li><a href="<?= ScriptApp.getService().getUrl(); ?>?v=inspcoversheet">Inspection Cover Sheet</a>
+					</li>
+					<li><a href="<?= ScriptApp.getService().getUrl(); ?>?v=equiphistory">Equipment History</a></li>
+				</ul>
+			</li>
+		</ul>
+	</nav>
+	<br>
+
+
+	<div id="imagewrap">
+		<img src="https://www.multicretesystems.com/site/assets/files/1006/xfooter_logo_r.png.pagespeed.ic.bKmBV7JcVG.png" alt="Multicrete Logo">
+  </div>
+
+		<br><br>
+
+		<center>
+			<div class="Rtable-cell">
+				<h1>Equipment Logbook Lookup</h1>
+			</div>
+		</center>
+
+
+		<br>
+		<hr>
+
+		<div class="form-info-inline">
+			<label class="form-info-label" for="assetno">Asset Number</label>
+			<select class="opt-grayfield" id="assetno">
+      <option value="" disabled selected>Asset #</option>
+      <? for(var i=0;i<assetlist.length;i++){?>
+
+        <option><?= assetlist[i]; ?></option>
+
+      <? } ?>
+    </select>
+		</div>
+
+		<div class="form-info-inline">
+			<label class="form-info-label" for="insptype">Inspection Type</label>
+			<select class="opt-grayfield" id="insptype">
+      <option id="dummyinsptype" value="dummyinsptype" disabled selected></option>
+      <option id="allinsp" value="All">All</option>
+      <option id="operatorinsp" value="Operator">Operator</option>
+      <option id="technicalinsp" value="Technical">Technical</option>
+    </select>
+		</div>
+
+		<br><br>
+		<hr>
+		<br>
+
+
+		<table id="testtable">
+			<thead id="equiphistory-tablehead">
+			</thead>
+
+			<tbody id="equiphistory-tablebody">
+			</tbody>
+		</table>
+
+
+
+		<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+		<?!= include("equiphistory-js"); ?>
+</body>
+
+</html>
